@@ -6,27 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import lotto.domain.customer.Customer;
+import lotto.domain.money.Money;
 
 public class LottoTicket {
+    private static final int TICEKT_PRICE = 1_000;
     private final Set<LottoNumber> lottoTicket;
-    //private final Money price;
-    //private final Customer owner;
+    private final Money price;
+    private final Customer owner;
 
-    public LottoTicket(Map<LottoNumberType, Integer> numbers) {
-        this.lottoTicket = generateLottoNumbers(numbers);
-    }
 
-    private Set<LottoNumber> generateLottoNumbers(Map<LottoNumberType, Integer> numbers) {
-        Set<LottoNumber> tmp = new HashSet<>();
-
-        for (Entry<LottoNumberType, Integer> each : numbers.entrySet()) {
-            LottoNumberType type = each.getKey();
-            Integer number = each.getValue();
-
-            tmp.add(new LottoNumber(number, type));
-        }
-
-        return tmp;
+    public LottoTicket(Set<LottoNumber> lottoTicket, Customer owner) {
+        this.lottoTicket = lottoTicket;
+        this.price = Money.wons(TICEKT_PRICE);
+        this.owner = owner;
     }
 
 }
