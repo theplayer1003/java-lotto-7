@@ -1,20 +1,32 @@
-package lotto;
+package lotto.domain.lotto;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class LottoTicket {
-    private final List<Integer> numbers;
+    private final Set<LottoNumber> lottoTicket;
+    //private final Money price;
+    //private final Customer owner;
 
-    public LottoTicket(List<Integer> numbers) {
-        validate(numbers);
-        this.numbers = numbers;
+    public LottoTicket(Map<LottoNumberType, Integer> numbers) {
+        this.lottoTicket = generateLottoNumbers(numbers);
     }
 
-    private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+    private Set<LottoNumber> generateLottoNumbers(Map<LottoNumberType, Integer> numbers) {
+        Set<LottoNumber> tmp = new HashSet<>();
+
+        for (Entry<LottoNumberType, Integer> each : numbers.entrySet()) {
+            LottoNumberType type = each.getKey();
+            Integer number = each.getValue();
+
+            tmp.add(new LottoNumber(number, type));
         }
+
+        return tmp;
     }
 
-    // TODO: 추가 기능 구현
 }
