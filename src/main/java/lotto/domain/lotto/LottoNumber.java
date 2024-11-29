@@ -19,6 +19,14 @@ public class LottoNumber {
         }
     }
 
+    public boolean checkLottoNumberType() {
+        if (lottoNumberType == LottoNumberType.BONUS) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import lotto.domain.customer.Customer;
 import lotto.domain.money.Money;
@@ -22,4 +23,37 @@ public class LottoTicket {
         this.owner = owner;
     }
 
+    public int isWinningTicket(LottoTicket winningTicket) {
+        int matchCount = 0;
+
+        for (LottoNumber each : lottoTicket) {
+            if (winningTicket.lottoTicket.contains(each)) {
+                matchCount++;
+            }
+        }
+
+        return matchCount;
+    }
+
+    public boolean isContainBonusNumber(LottoTicket winningTicket) {
+        Optional<LottoNumber> bonusNumber = winningTicket.findBonusNumber();
+
+        if (bonusNumber.isPresent()) {
+            if (lottoTicket.contains(bonusNumber)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private Optional<LottoNumber> findBonusNumber() {
+        for (LottoNumber each : lottoTicket) {
+            if (each.checkLottoNumberType()) {
+                return Optional.of(each);
+            }
+        }
+
+        return Optional.empty();
+    }
 }
